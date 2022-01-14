@@ -19,6 +19,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"log"
 
 	"golang.org/x/net/context/ctxhttp"
 )
@@ -187,6 +188,7 @@ func cloneURLValues(v url.Values) url.Values {
 
 func RetrieveToken(ctx context.Context, clientID, clientSecret, tokenURL string, v url.Values, authStyle AuthStyle) (*Token, error) {
 	needsAuthStyleProbe := authStyle == 0
+	log.Println("[>] In RetrieveToken")
 	if needsAuthStyleProbe {
 		if style, ok := lookupAuthStyle(tokenURL); ok {
 			authStyle = style
@@ -195,6 +197,7 @@ func RetrieveToken(ctx context.Context, clientID, clientSecret, tokenURL string,
 			authStyle = AuthStyleInHeader // the first way we'll try
 		}
 	}
+	log.Printf("[>] tokenURL: %s, clientID: %s, clientSecret: %s, v: %q, authStyle: %q", tokenURL, clientID, clientSecret, v, authStyle)
 	req, err := newTokenRequest(tokenURL, clientID, clientSecret, v, authStyle)
 	if err != nil {
 		return nil, err
