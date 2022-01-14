@@ -1,5 +1,7 @@
 module golang.org/x/oauth2
 
+replace golang.org/x/oauth2 => github.com/BlancLoup/oauth2
+
 go 1.11
 
 require (
