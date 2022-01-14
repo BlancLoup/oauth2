@@ -1,6 +1,6 @@
-module golang.org/x/oauth2
+module github.com/BlancLoup/oauth2
 
-replace golang.org/x/oauth2 => github.com/BlancLoup/oauth2
+replace github.com/BlancLoup/oauth2 => golang.org/x/oauth2
 
 go 1.11
 
