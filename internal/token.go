@@ -167,7 +167,10 @@ func newTokenRequest(tokenURL, clientID, clientSecret string, v url.Values, auth
 			v.Set("client_secret", clientSecret)
 		}
 	}
+	log.Println("[>>] New token by code request")
+	log.Printf("[>>] tokenURL: %s, arguments: %q", tokenURL, v)
 	req, err := http.NewRequest("POST", tokenURL, strings.NewReader(v.Encode()))
+	log.Printf("[>>] NewRequest: %q", tokenURL, req)
 	if err != nil {
 		return nil, err
 	}
