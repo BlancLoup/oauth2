@@ -15,7 +15,7 @@ import (
 	"strings"
 	"sync"
 
-	"golang.org/x/oauth2"
+	"github.com/BlancLoup/oauth2"
 	"google.golang.org/appengine"
 )
 
