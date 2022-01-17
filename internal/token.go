@@ -20,7 +20,8 @@ import (
 	"sync"
 	"time"
 	"log"
-
+	
+	"moul.io/http2curl"
 	"golang.org/x/net/context/ctxhttp"
 )
 
@@ -240,6 +241,8 @@ func doTokenRoundTrip(ctx context.Context, req *http.Request) (*Token, error) {
 		return nil, err
 	}
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1<<20))
+	command, _ := http2curl.GetCurlCommand(r.Request)
+	log.Println(command)
 	r.Body.Close()
 	if err != nil {
 		return nil, fmt.Errorf("oauth2: cannot fetch token: %v", err)
