@@ -245,7 +245,9 @@ func doTokenRoundTrip(ctx context.Context, req *http.Request) (*Token, error) {
 	}
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1<<20))
 	command, _ := http2curl.GetCurlCommand(req)
-	log.Printf("[*] doTokenRoundTrip Curl result: %s\n", command)
+	command2, _ := http2curl.GetCurlCommand(r.Request)
+	log.Printf("[*] doTokenRoundTrip orig Curl result: %s\n", command)
+	log.Printf("[*] doTokenRoundTrip resp Curl result: %s\n", command2)
 	log.Printf("[>] doTokenRoundTrip r..Method: %q\n", r.Request.Method)
 	r.Body.Close()
 	if err != nil {
