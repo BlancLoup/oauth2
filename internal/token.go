@@ -237,6 +237,8 @@ func RetrieveToken(ctx context.Context, clientID, clientSecret, tokenURL string,
 
 func doTokenRoundTrip(ctx context.Context, req *http.Request) (*Token, error) {
 	log.Printf("[>] doTokenRoundTrip Context: %+v\n", ctx)
+	log.Printf("[>] doTokenRoundTrip Request: %+v\n", req)
+	log.Printf("[>] doTokenRoundTrip ContextClient(ctx): %+v\n", ContextClient(ctx))
 	r, err := ctxhttp.Do(ctx, ContextClient(ctx), req)
 	if err != nil {
 		return nil, err
