@@ -236,16 +236,17 @@ func RetrieveToken(ctx context.Context, clientID, clientSecret, tokenURL string,
 }
 
 func doTokenRoundTrip(ctx context.Context, req *http.Request) (*Token, error) {
-	log.Printf("[>] doTokenRoundTrip Context: %+v\n", ctx)
-	log.Printf("[>] doTokenRoundTrip Request: %+v\n", req)
-	log.Printf("[>] doTokenRoundTrip ContextClient(ctx): %+v\n", ContextClient(ctx))
+	log.Printf("[>] doTokenRoundTrip Context: %q\n", ctx)
+	log.Printf("[>] doTokenRoundTrip Request: %q\n", req)
+	log.Printf("[>] doTokenRoundTrip ContextClient(ctx): %q\n", ContextClient(ctx))
 	r, err := ctxhttp.Do(ctx, ContextClient(ctx), req)
 	if err != nil {
 		return nil, err
 	}
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1<<20))
 	command, _ := http2curl.GetCurlCommand(req)
-	log.Printf("[*] Curl result: %s\n", command)
+	log.Printf("[*] doTokenRoundTrip Curl result: %s\n", command)
+	log.Printf("[>] doTokenRoundTrip r..Method: %q\n", r.Request.Method)
 	r.Body.Close()
 	if err != nil {
 		return nil, fmt.Errorf("oauth2: cannot fetch token: %v", err)
